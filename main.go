@@ -1,9 +1,18 @@
 package main
 
 import (
+	"go-web-server/handler"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
+
+func setupRouter(engine *gin.Engine, reg *handler.Registry) {
+	engine.GET("/ping", reg.PingHandler)
+	engine.GET("/reportData", reg.ListReportData)
+	engine.POST("/reportData", reg.CreateReportData)
+}
 
 func main() {
 	r := gin.Default()
@@ -14,10 +23,9 @@ func main() {
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "{name: 'kk'}",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+	reg := handler.NewRegistry()
+	setupRouter(r, reg)
+	// listen and serve on 0.0.0.0:8080
+	r.Run()
+	reg.DAO.Close()
 }
