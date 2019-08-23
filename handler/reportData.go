@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ListReportData return response
 func (r *Registry) ListReportData(c *gin.Context) {
 	// start := c.DefaultQuery("start", "0")
 	// end := c.DefaultQuery("end", "0")
@@ -18,6 +19,7 @@ func (r *Registry) ListReportData(c *gin.Context) {
 	})
 }
 
+// CreateReportData return response
 func (r *Registry) CreateReportData(c *gin.Context) {
 	var data dao.ReportData
 	if err := c.ShouldBindJSON(&data); err != nil {
