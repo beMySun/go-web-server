@@ -15,7 +15,7 @@ func (r *Registry) ListReportData(c *gin.Context) {
 	result := r.DAO.ListReportData()
 	c.JSON(http.StatusOK, gin.H{
 		"data":    result,
-		"message": "ok",
+		"message": "Query Success",
 	})
 }
 
@@ -35,6 +35,6 @@ func (r *Registry) CreateReportData(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "",
+		"message": "Report Success",
 	})
 }
