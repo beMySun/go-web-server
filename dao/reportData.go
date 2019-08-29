@@ -53,3 +53,16 @@ func (d *DAO) ListTodoList() []*TodoList {
 	d.SelectDB("todo").Limit(10).Find(&result)
 	return result
 }
+
+// CreateReportData create a record
+func (d *DAO) CreateTodoRecord(id string, text string, isCompleted int) error {
+	data := &TodoList{
+		ID:          id,
+		Text:        text,
+		IsCompleted: isCompleted,
+	}
+	if err := d.SelectDB("todo").Create(&data).Error; err != nil {
+		return err
+	}
+	return nil
+}
