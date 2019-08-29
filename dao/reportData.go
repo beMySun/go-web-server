@@ -1,5 +1,6 @@
 package dao
 
+// ReportData struct defination
 type ReportData struct {
 	ID        uint64 `gorm:"primary_key" json:"id"`
 	Timestamp uint64 `json:"timestamp"`
@@ -8,6 +9,7 @@ type ReportData struct {
 	UUID      string `json:"uuid"`
 }
 
+// TodoList struct defination
 type TodoList struct {
 	ID          string `gorm:"primary_key" json:"id"`
 	Text        string `json:"text"`
@@ -19,7 +21,7 @@ func (ReportData) TableName() string {
 	return "report_data_tab"
 }
 
-// Gorm 默认调用， 取表名
+// TableName Gorm 默认调用,取表名
 func (TodoList) TableName() string {
 	return "todos_database"
 }
