@@ -12,9 +12,10 @@ func setupRouter(engine *gin.Engine, reg *handler.Registry) {
 	engine.GET("/ping", reg.PingHandler)
 	engine.GET("/reportData", reg.ListReportData)
 	engine.POST("/reportData", reg.CreateReportData)
-	engine.GET("/getTodoList", reg.ListTodoList)
+	engine.GET("/getTodoList", reg.QueryTodoList)
 	engine.POST("/CreateTodoRecord", reg.CreateTodoRecord)
-
+	engine.POST("/deleteRecord", reg.DeleteTodo)
+	engine.POST("/updateRecord", reg.UpdateteTodoRecord)
 }
 
 func main() {

@@ -47,14 +47,7 @@ func (d *DAO) CreateReportData(timestamp uint64, dataType, value int, uuid strin
 	return nil
 }
 
-// ListTodoList return result
-func (d *DAO) ListTodoList() []*TodoList {
-	result := make([]*TodoList, 0)
-	d.SelectDB("todo").Limit(10).Find(&result)
-	return result
-}
-
-// CreateReportData create a record
+// CreateTodoRecord create a record
 func (d *DAO) CreateTodoRecord(id string, text string, isCompleted int) error {
 	data := &TodoList{
 		ID:          id,
@@ -62,6 +55,31 @@ func (d *DAO) CreateTodoRecord(id string, text string, isCompleted int) error {
 		IsCompleted: isCompleted,
 	}
 	if err := d.SelectDB("todo").Create(&data).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// QueryTodoList return result
+func (d *DAO) QueryTodoList() []*TodoList {
+	result := make([]*TodoList, 0)
+	d.SelectDB("todo").Limit(100).Find(&result)
+	return result
+}
+
+// DeleteTodo todo by id
+func (d *DAO) DeleteTodo(id string) error {
+	if err := d.SelectDB("todo").Table("todos_database").Where("id=?", id).Delete(&TodoList{}).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdateTodo a record
+func (d *DAO) UpdateTodo(id string, isCompleted int) error {
+	if err := d.SelectDB("todo").Table("todos_database").Where("id=?", id).Update(map[string]interface{}{
+		"is_completed": isCompleted,
+	}).Error; err != nil {
 		return err
 	}
 	return nil
