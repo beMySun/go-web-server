@@ -38,7 +38,6 @@ func (r *Registry) DeleteTodo(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Delete Success",
 	})
-
 }
 
 // CreateTodoRecord create a new record
@@ -64,7 +63,7 @@ func (r *Registry) CreateTodoRecord(c *gin.Context) {
 
 }
 
-// UpdateteTodoRecord create a new record
+// UpdateteTodoRecord will update a new record
 func (r *Registry) UpdateteTodoRecord(c *gin.Context) {
 	var data dao.TodoList
 	if err := c.ShouldBindJSON(&data); err != nil {
@@ -84,5 +83,4 @@ func (r *Registry) UpdateteTodoRecord(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Report Success",
 	})
-
 }
